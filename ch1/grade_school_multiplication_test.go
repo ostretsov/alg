@@ -1,6 +1,9 @@
 package ch1
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestGradeSchoolMultiply(t *testing.T) {
 	t.Run("invalid arguments", func(t *testing.T) {
@@ -41,4 +44,15 @@ func TestGradeSchoolMultiply(t *testing.T) {
 			t.Errorf("want %s got %s", want, got)
 		}
 	})
+}
+
+func TestConvertStringNumberToBytes(t *testing.T) {
+	num := "12340"
+
+	want := []byte{1, 2, 3, 4, 0}
+	got := ConvertStringNumberToBytes(num)
+
+	if !reflect.DeepEqual(want, got) {
+		t.Errorf("want %v got %v", want, got)
+	}
 }

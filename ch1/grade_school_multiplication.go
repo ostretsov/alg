@@ -18,3 +18,13 @@ func GradeSchoolMultiply(a, b string) (result string, err error) {
 
 	return strconv.Itoa(intA * intB), nil
 }
+
+func ConvertStringNumberToBytes(number string) []byte {
+	var result []byte
+	for i := 0; i < len(number); i++ {
+		b := byte(number[i]) - byte('0')
+		result = append(result, b)
+	}
+
+	return result
+}
