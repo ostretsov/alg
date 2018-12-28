@@ -22,8 +22,7 @@ func GradeSchoolMultiply(a, b string) (result string, err error) {
 func ConvertStringNumberToBytes(number string) []byte {
 	var result []byte
 	for i := 0; i < len(number); i++ {
-		b := byte(number[i]) - byte('0')
-		result = append(result, b)
+		result = append(result, number[i]-'0')
 	}
 
 	return result
