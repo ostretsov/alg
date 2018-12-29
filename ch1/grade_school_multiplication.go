@@ -39,15 +39,27 @@ func convertStringNumberToBytes(number string) []byte {
 	return result
 }
 
-//func multiplyByteByByte(a, b []byte) (c cascade) {
-//	for k, v := range b {
-//		for _, v := range a {
-//
-//		}
-//	}
-//
-//	return
-//}
+func multiplyByteByByte(a, b []byte) (c cascade) {
+	var carry byte = 0
+	for kB, vB := range b {
+		appendZeros(c[kB], kB)
+
+		for _, vA := range a {
+			r, cr := multiplyBytes(vA, vB)
+			c[kB] = append(c[kB], r+carry)
+			carry = cr
+		}
+	}
+
+	return
+}
+
+func appendZeros(target []byte, n int) (a []byte) {
+	for i := 0; i < n; i++ {
+		a = append(a, 0)
+	}
+	return
+}
 
 func multiplyBytes(a, b byte) (remainder, carry byte) {
 	product := a * b
