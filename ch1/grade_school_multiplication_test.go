@@ -50,9 +50,54 @@ func TestConvertStringNumberToBytes(t *testing.T) {
 	num := "12340"
 
 	want := []byte{1, 2, 3, 4, 0}
-	got := ConvertStringNumberToBytes(num)
+	got := convertStringNumberToBytes(num)
 
 	if !reflect.DeepEqual(want, got) {
 		t.Errorf("want %v got %v", want, got)
 	}
+}
+
+//func TestMultiplyByteByByte(t *testing.T) {
+//	a := []byte{1, 2, 3, 4}
+//	b := []byte{7, 8, 9}
+//
+//	want := cascade{
+//		{1, 1, 1, 0, 6},
+//		{9, 8, 7, 2, 0},
+//		{8, 6, 3, 8, 0, 0},
+//	}
+//	got := multiplyByteByByte(a, b)
+//
+//	if (!reflect.DeepEqual(want, got)) {
+//		t.Errorf("want %v, got %v", want, got)
+//	}
+//}
+
+func TestMultiplyBytes(t *testing.T) {
+	cases := []struct {
+		A, B                    byte
+		WantReminder, WantCarry byte
+	}{
+		{byte(9), byte(9), byte(1), byte(8)},
+		{byte(0), byte(0), byte(0), byte(0)},
+		{byte(5), byte(4), byte(0), byte(2)},
+	}
+
+	for _, c := range cases {
+		a := c.A
+		b := c.B
+
+		wantRemainder := c.WantReminder
+		wantCarry := c.WantCarry
+		gotRemainder, gotCarry := multiplyBytes(a, b)
+
+		if gotRemainder != wantRemainder {
+			t.Errorf("got %v want %v, case %v", gotRemainder, wantRemainder, c)
+		}
+
+		if gotCarry != wantCarry {
+			t.Errorf("got %v want %v, case %v", gotCarry, wantCarry, c)
+		}
+	}
+
 }

@@ -5,6 +5,8 @@ import (
 	"strconv"
 )
 
+type cascade [][]byte
+
 func GradeSchoolMultiply(a, b string) (result string, err error) {
 	intA, err := strconv.Atoi(a)
 	if err != nil {
@@ -17,13 +19,40 @@ func GradeSchoolMultiply(a, b string) (result string, err error) {
 	}
 
 	return strconv.Itoa(intA * intB), nil
+	/**
+	if len(b) > len(a) {
+		a, b = b, a
+	}
+	bytesA := convertStringToBytes(a)
+	bytesB := convertStringToBytes(b)
+	c := multiplyByteByByte(a, b)
+	return sumCascadeWithCarries(c)
+	*/
 }
 
-func ConvertStringNumberToBytes(number string) []byte {
+func convertStringNumberToBytes(number string) []byte {
 	var result []byte
 	for i := 0; i < len(number); i++ {
 		result = append(result, number[i]-'0')
 	}
 
 	return result
+}
+
+//func multiplyByteByByte(a, b []byte) (c cascade) {
+//	for k, v := range b {
+//		for _, v := range a {
+//
+//		}
+//	}
+//
+//	return
+//}
+
+func multiplyBytes(a, b byte) (remainder, carry byte) {
+	product := a * b
+	remainder = product % 10
+	carry = (product - remainder) / 10
+
+	return
 }
