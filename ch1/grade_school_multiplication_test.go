@@ -49,7 +49,7 @@ func TestGradeSchoolMultiply(t *testing.T) {
 func TestConvertStringNumberToBytes(t *testing.T) {
 	num := "12340"
 
-	want := []byte{1, 2, 3, 4, 0}
+	want := []byte{0, 4, 3, 2, 1}
 	got := convertStringNumberToBytes(num)
 
 	if !reflect.DeepEqual(want, got) {
@@ -62,9 +62,9 @@ func TestMultiplyByteByByte(t *testing.T) {
 	b := []byte{7, 8, 9}
 
 	want := cascade{
-		{1, 1, 1, 0, 6},
-		{9, 8, 7, 2, 0},
-		{8, 6, 3, 8, 0, 0},
+		{7, 4, 2, 0, 3},
+		{0, 8, 6, 5, 4, 3},
+		{0, 0, 9, 8, 8, 8, 3},
 	}
 	got := multiplyByteByByte(a, b)
 
@@ -105,11 +105,13 @@ func TestMultiplyBytes(t *testing.T) {
 	}
 }
 
-func TestAppendZeros(t *testing.T) {
-	a := []byte{}
-
-	want := []byte{0, 0}
-	got := appendZeros(a, 2)
+func TestInitRow(t *testing.T) {
+	want := cascade{
+		{},
+		{0},
+	}
+	got := cascade{}
+	got.initRow(1)
 
 	if !reflect.DeepEqual(want, got) {
 		t.Errorf("got %v, want %v", got, want)

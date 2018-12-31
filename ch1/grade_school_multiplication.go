@@ -1,11 +1,16 @@
 package ch1
 
 import (
+	"alg/utils"
 	"fmt"
 	"strconv"
 )
 
 type cascade [][]byte
+
+func (c *cascade) initRow(n int) {
+
+}
 
 func GradeSchoolMultiply(a, b string) (result string, err error) {
 	intA, err := strconv.Atoi(a)
@@ -31,6 +36,8 @@ func GradeSchoolMultiply(a, b string) (result string, err error) {
 }
 
 func convertStringNumberToBytes(number string) []byte {
+	number = utils.StrSimpleReverse(number)
+
 	var result []byte
 	for i := 0; i < len(number); i++ {
 		result = append(result, number[i]-'0')
@@ -42,7 +49,7 @@ func convertStringNumberToBytes(number string) []byte {
 func multiplyByteByByte(a, b []byte) (c cascade) {
 	var carry byte = 0
 	for kB, vB := range b {
-		appendZeros(c[kB], kB)
+		c.initRow(kB)
 
 		for _, vA := range a {
 			r, cr := multiplyBytes(vA, vB)
@@ -51,13 +58,6 @@ func multiplyByteByByte(a, b []byte) (c cascade) {
 		}
 	}
 
-	return
-}
-
-func appendZeros(target []byte, n int) (a []byte) {
-	for i := 0; i < n; i++ {
-		a = append(a, 0)
-	}
 	return
 }
 
